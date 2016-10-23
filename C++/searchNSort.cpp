@@ -6,7 +6,7 @@ void printArray(int array[], int size);
 void swap(int& a, int& b);
 int *bubbleSort(int array[], int size);
 int binarySearch(int array[], int size, int value);
-
+int *selectionSort(int array[], int size);
 
 int main()
 {
@@ -15,10 +15,13 @@ int main()
     int searchValue = 4;
 
     std::cout << "Before sorting" << std::endl;
+    printArray(list, sizeOfList);
     std::cout << "LinearFirstSearch -> index of value " << searchValue << " is: " << linearFirstSearch(list, sizeOfList, searchValue) << std::endl;
 
     // sort
-    bubbleSort(list, sizeOfList);
+    // bubbleSort(list, sizeOfList);
+    selectionSort(list, sizeOfList);
+    printArray(list, sizeOfList);
     std::cout << "\n\n";
 
     std::cout << "After sorting" << std::endl;
@@ -27,6 +30,25 @@ int main()
 
 
     return 0;
+}
+
+
+int *selectionSort(int array[], int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        int minimum = i;
+        for(int j = i; j < size; j++)
+        {
+            if (array[minimum] > array[j]) {
+                minimum = j;
+            }
+        }
+
+        swap(array[minimum], array[i]);
+    }
+
+    return array;
 }
 
 
