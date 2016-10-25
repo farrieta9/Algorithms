@@ -1,43 +1,75 @@
 #include <iostream>
 using namespace std;
 
-int fibonacci_recursive(int);
-int fibonacci_loop(int);
+int fibonacciRecursive(int);
+int fibonacciLoop(int);
+int fibonacciModified(int nth);
 
-int main() {
+int main()
+{
 
-	int x = 5;
-	cout << fibonacci_recursive(x) << endl;
-	cout << fibonacci_loop(x) << endl;
+	int x = 7;
+	cout << fibonacciRecursive(x) << endl;
+	cout << fibonacciLoop(x) << endl;
+    cout << fibonacciModified(x) << endl;
 	return 0;
 }
 
+int fibonacciModified(int nth)
+{
+    //n           1    2    3    4    5    6    7
+    //fib(n)      1    1    3    7   17   41   99
 
-int fibonacci_recursive(int nth) {
+    // base case
+    if(nth <= 0)
+    {
+        return 0;
+    }
 
-	if(nth < 2) {
+    if(nth <= 2)
+    {
+        return 1;
+    }
+
+    return fibonacciModified(nth - 2) + (fibonacciModified(nth - 1) * 2);
+}
+
+int fibonacciRecursive(int nth)
+{
+
+    if (nth <= 0)
+    {
+        return 0;
+    }
+
+	if(nth <= 2)
+    {
 		return 1;
-	} else {
-		return fibonacci_recursive(nth - 2) + fibonacci_recursive(nth - 1);
 	}
 
-	return 0;
+	return fibonacciRecursive(nth - 2) + fibonacciRecursive(nth - 1);
 }
 
-int fibonacci_loop(int nth) {
+int fibonacciLoop(int nth)
+{
 
-	if(nth < 2) {
+    if (nth <= 0)
+    {
+        return 0;
+    }
+
+	if(nth <= 2)
+    {
 		return 1;
 	}
 
 	int firstPreceding = 1;
 	int secondPreceding = 1;
 
-	for (int i = 1; i < nth; i++) {
-
+	for (int i = 3; i <= nth; i++)
+    {
 		firstPreceding = secondPreceding + firstPreceding;
 		secondPreceding = firstPreceding - secondPreceding;
-
 	}
 
 	return firstPreceding;
