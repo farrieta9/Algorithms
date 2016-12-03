@@ -108,6 +108,95 @@ public class BinaryTree {
             return searchTree(node.rightChild, key);
         }
     }
+
+    public boolean removeNode(int key) {
+        Node focusNode = root;
+        Node parent = root;
+
+        boolean isItALeftChild = true;
+
+        while(focusNode.key != key) {
+            parent = focusNode;
+            if(key < focusNode.key) {
+                isItALeftChild = true;
+                focusNode = focusNode.leftChild;
+            } else {
+                isItALeftChild = false;
+                focusNode = focusNode.rightChild;
+            }
+
+        }
+
+        if(focusNode == null) {
+            return false;
+        }
+
+        // to delete node
+        if (focusNode.leftChild == null && focusNode.rightChild == null) {
+            if(focusNode == root) {
+                root = null;
+            } else if(isItALeftChild) {
+                parent.leftChild = null;
+            } else {
+                parent.rightChild = null;
+            }
+        } else if (focusNode.rightChild == null) {
+
+            if(focusNode == root) {
+                root = focusNode.leftChild;
+            } else if (focusNode.rightChild == null) {
+                if (focusNode == root) {
+                    root = focusNode.leftChild;
+                } else if(isItALeftChild){
+                        parent.leftChild = focusNode.leftChild;
+                } else {
+                    parent.rightChild = focusNode.leftChild;
+                }
+            }
+        } else if (focusNode.leftChild == null) {
+            if(focusNode == root) {
+                root = focusNode.rightChild;
+            } else if (isItALeftChild) {
+                parent.leftChild = focusNode.rightChild;
+            } else {
+                parent.rightChild = focusNode.leftChild;
+            }
+        } else {
+            // two children are evolved
+            Node replacement = getReplacementNode(focusNode);
+            if(focusNode == root) {
+                root = replacement;
+            } else if (isItALeftChild)
+                parent.leftChild = replacement;
+            else
+                parent.rightChild = replacement;
+            replacement.leftChild = focusNode.leftChild;
+        }
+
+        return true;
+    }
+
+    public Node getReplacementNode(Node replaceNode) {
+
+        Node replacementParent = replaceNode;
+        Node replacement = replaceNode;
+
+        Node focusNode = replaceNode.rightChild;
+
+        while(focusNode != null) {
+            replacementParent = replacement;
+            replacement = focusNode;
+            focusNode = focusNode.leftChild;
+        }
+
+        if(replacement != replaceNode.rightChild) {
+            replacementParent.leftChild = replacement.rightChild;
+            replacement.rightChild = replaceNode.rightChild;
+        }
+
+        return replacement;
+
+    }
 }
 
 class Node {

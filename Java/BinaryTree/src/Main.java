@@ -11,12 +11,17 @@ public class Main {
         theTree.addNode(75, "Sales Manager");
         theTree.addNode(85, "Salesman 1");
 
-//        theTree.inOrderTraversal(theTree.root);
+        theTree.inOrderTraversal(theTree.root);
 //        theTree.preOrderTraversal(theTree.root);
 //        theTree.postOrderTraversal(theTree.root);
 
-        System.out.println(theTree.findNodeInteratively(30));
+        System.out.println(theTree.findNodeIteratively(30));
         System.out.println(theTree.searchTree(theTree.root, 85));
+
+        System.out.println("Remove 25");
+        theTree.removeNode(25);
+        theTree.inOrderTraversal(theTree.root);
+
 
 
     }
