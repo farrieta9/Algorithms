@@ -60,7 +60,7 @@ public class BinaryTree {
         }
     }
 
-    public Node findNodeInteratively(int key) {
+    public Node findNodeIteratively(int key) {
         // Time complexity: O(logn)
         Node focusNode = root;
         while(focusNode.key != key) {
